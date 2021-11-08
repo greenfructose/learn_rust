@@ -1,8 +1,39 @@
+// Bookmark: https://doc.rust-lang.org/book/ch06-00-enums.html
+
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    // println!("rect1 is {:#?}", rect1);
+    dbg!(&rect1);
+    println!("rect1 area is {}", rect1.area());
+    let mut user1 = User {
+        email: String::from("test@thing.com"),
+        username: String::from("thisisausername"),
+        active: true,
+        sign_in_count: 1,
+    };
+    let user2 = User{
+        email: String::from("test2@thing.com"),
+        ..user1
+    };
+    println!("user2 email is {}", user2.email);
     println!("The 10th fibonacci number is {}", nth_fibonacci_number(10));
     println!("80f is {}c", fahrenheit_to_celsius(80.0));
     println!("26.6c is {}f", celsius_to_fahrenheit(26.6));
@@ -36,6 +67,16 @@ fn main() {
 
 }
 
+
+fn build_user(email: String, username: String) -> User {
+    User {
+        email,
+        username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+
 fn nth_fibonacci_number(n: i64) -> i64 {
     match n {
         0 => 1,
@@ -45,11 +86,11 @@ fn nth_fibonacci_number(n: i64) -> i64 {
 }
 
 fn fahrenheit_to_celsius(f: f64) -> f64 {
-    return (f - 32.0) * 5.0 / 9.0;
+    (f - 32.0) * 5.0 / 9.0
 }
 
 fn celsius_to_fahrenheit(c: f64) -> f64 {
-    return (c * 9.0/5.0) + 32.0;
+    (c * 9.0/5.0) + 32.0
 }
 
 fn guessing_game() {
@@ -75,5 +116,27 @@ fn guessing_game() {
                 break;
             }
         }
+    }
+}
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32
+    {
+        self.width * self.height
+    }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
     }
 }
