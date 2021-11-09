@@ -1,4 +1,4 @@
-// Bookmark: https://doc.rust-lang.org/book/ch06-00-enums.html
+// Bookmark: https://doc.rust-lang.org/book/ch07-00-managing-growing-projects-with-packages-crates-and-modules.html
 
 use std::io;
 use std::cmp::Ordering;
